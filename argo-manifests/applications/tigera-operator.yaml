@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tigera-operator
-  namespace: argo-cd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
+  namespace: argocd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
 spec:
   destination:
     namespace: tigera-operator
@@ -23,3 +23,4 @@ spec:
     syncOptions:
     - Validate=false
     - CreateNamespace=true
+    - ServerSideApply=true
