@@ -23,15 +23,22 @@ printf "\nInstalling ArgoCD...\n"
 su - vagrant -c 'kubectl create ns argocd'
 su - vagrant -c 'helm -n argocd install argo-cd /vagrant/manifests/argo-cd --create-namespace --namespace argocd -f /vagrant/manifests/argo-cd/values.yaml'
 
-####################### Install Calico Cluster ########################
+printf "\nCooling down for 15 seconds...\n"
+sleep 15
+
+su - vagrant -c 'kubectl apply -f /vagrant/argo-manifests/applications/argocd.yaml'
+
+###################### Install Calico Cluster ########################
 printf "\nInstalling Tigera Operator for Calico CNI...\n"
   su - vagrant -c 'kubectl create namespace tigera-operator'
 
 printf "\nInstalling Tigera Operator for Calico CNI...\n"
-  su - vagrant -c 'helm install calico /vagrant/manifests/tigera-operator -f /vagrant/manifests/tigera-operator/values1.yaml --namespace tigera-operator'
+  su - vagrant -c 'helm install calico /vagrant/manifests/tigera-operator -f /vagrant/manifests/tigera-operator/values.yaml --namespace tigera-operator'
 
 printf "\nInstalling Calico CNI with VXLAN...\n"
   su - vagrant -c 'kubectl apply -f /vagrant/manifests/tigera-operator/calico-install-vxlan.yaml'
+
+su - vagrant -c 'kubectl apply -f /vagrant/argo-manifests/applications/tigera-operator.yaml'
 
 printf "\nCooling down for 5 seconds...\n"
 sleep 5
