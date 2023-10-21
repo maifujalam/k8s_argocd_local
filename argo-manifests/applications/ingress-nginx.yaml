@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ingress-nginx
-  namespace: argo-cd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
+  namespace: argocd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
 spec:
   destination:
     namespace: ingress-nginx
@@ -11,9 +11,9 @@ spec:
   source:
     helm:
       valueFiles:
-      - values1.yaml
+      - values.yaml
     path: manifests/ingress-nginx
-    repoURL: https://github.com/maifujalam/argocd.git
+    repoURL: https://github.com/maifujalam/k8s_argocd_local.git
     targetRevision: HEAD
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
