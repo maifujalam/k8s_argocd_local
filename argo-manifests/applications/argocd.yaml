@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tigera-operator
-  namespace: argo-cd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
+  name: argocd
+  namespace: argocd  # Argo CD only listen for application type to the argocd installed namespace(argo-cd in this case).So its constant.
 spec:
   destination:
-    namespace: tigera-operator
+    namespace: argocd
     server: https://kubernetes.default.svc
   project: default
   source:
     helm:
       valueFiles:
       - values.yaml
-    path: manifests/tigera-operator
+    path: manifests/argo-cd
     repoURL: https://github.com/maifujalam/k8s_argocd_local.git
     targetRevision: HEAD
   syncPolicy:
