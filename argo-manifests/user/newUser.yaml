@@ -1,0 +1,28 @@
+apiVersion: v1
+data:
+  accounts.adminuser: "apiKey, login" #
+  accounts.sreuser: "apiKey, login"
+  accounts.devuser: "apiKey, login"
+  accounts.alam: "apiKey, login"
+  accounts.alam.enabled: "true"
+  admin.enabled: "true"
+  application.instanceLabelKey: "argocd.argoproj.io/instance"
+  exec.enabled: "false"
+  server.rbac.log.enforce.enable: "false"
+  timeout.hard.reconciliation: "0s"
+  timeout.reconciliation: "180s"
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: argo-cd
+    meta.helm.sh/release-namespace: argocd
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.8.4
+    helm.sh/chart: argo-cd-5.46.7
+  name: argocd-cm
+  namespace: argocd

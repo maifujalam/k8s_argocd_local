@@ -1,0 +1,22 @@
+0. reference: https://faun.pub/create-argo-cd-local-users-9e830db3763f
+1. Create new user by adding below lines in data field of config map agcocd-cm.
+  accounts.alam: "apiKey, login"
+  accounts.alam.enabled: "true"
+2. After that RBAC has to be assigned.Reference:- https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
+3. Hare in policy.yaml.
+    admin: all permission  (All permissions)
+    sre: clusters,repositories,projects,applications,applicationsets (All permissions,but cannot create new user)
+    dev: applications,applicationsets  (Limited permission)
+
+    Hare p: policy rule
+         g: grant policy rule to user or group.
+4. Set password of created user,first login with admin account,then:
+    argocd account update-password --account alam --current-password 'myadminpassword' --new-password  mysecurepass --port-forward --port-forward-namespace argocd --plaintext
+    Note:- Always use admin password in current passoword(dont use old passowrd).
+5. List all accounts: argocd account list
+6. Describe of a account:argocd account get alam
+7. Policy file validation: argocd admin settings rbac validate --policy-file policy.csv
+8. Validating role RBAC:
+  a. argocd admin settings rbac can role:alam get applications --policy-file argocd-rbac-cm.yaml
+  b. argocd admin settings rbac can alam create repositories --namespace argocd
+

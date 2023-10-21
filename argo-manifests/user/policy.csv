@@ -1,0 +1,32 @@
+p, role:admin, *, *, *, allow
+
+p, role:readonly, applications, get, */*, allow
+p, role:readonly, certificates, get, *, allow
+p, role:readonly, clusters, get, *, allow
+p, role:readonly, repositories, get, *, allow
+p, role:readonly, projects, get, *, allow
+p, role:readonly, accounts, get, *, allow
+p, role:readonly, gpgkeys, get, *, allow
+p, role:readonly, logs, get, */*, allow
+
+p, role:sre, clusters, get, */*, allow
+p, role:sre, repositories, *, */*, allow
+p, role:sre, applications, *, */*, allow
+p, role:sre, projects, *, *, allow
+p, role:sre, logs, *, *, allow
+p, role:sre, exec, *, */*, allow
+p, role:sre, certificates, *, *, allow
+p, role:sre, gpgkeys, *, *, allow
+
+p, role:dev, applications, *, */*, allow
+p, role:dev, projects, *, *, allow
+p, role:dev, logs, get, *, allow
+p, role:dev, exec, get, */*, allow
+
+g, adminuser, role:admin
+g, readonlyuser, role:readonly
+g, sreuser, role:sre
+g, devuser, role:dev
+
+g, alam, role:readonly
+
