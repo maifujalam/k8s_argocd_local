@@ -1,3 +1,19 @@
-1. Public helm repo stored at below bucket of account alam.
-    a. check at output
-2.
+1. Use aws s3 as repo for helm charts.Reffer:- https://github.com/hypnoglow/helm-s3
+2. Public helm repo stored at below bucket of account alam.
+    a. check at output file
+3. Install helm s3 on host.
+    a. $ helm plugin install https://github.com/hypnoglow/helm-s3.git
+4. Setup bucket with index.yaml by doing init.
+    a. $ helm s3 init s3://bucket-name/charts
+    b. example:- helm s3 init s3://public-helm-repository-20231022124329854200000001/charts
+    c. Add repo name to this s3 bucket: $ helm repo add public-helm-repository-s3 s3://public-helm-repository-20231022124329854200000001/charts
+    d. verify added repo: helm repo list
+5. Create helm tar file.
+    a. validate helm filee:- helm lint hello-kubernetes/
+    b. Package helm files into archive:- helm package hello-kubernetes/
+    c. Note:- a tar file will be generated basded on chart version from Chart.yaml.
+6. Upload to s3 bucket:
+    a. $ helm s3 push ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
+    b. $ helm s3 push --force ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
+7. Search chart uploaded to repo:
+    a. helm search repo hello
