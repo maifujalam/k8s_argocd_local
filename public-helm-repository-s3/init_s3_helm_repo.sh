@@ -8,4 +8,5 @@ printf "Bucket Name: $BUCKET_NAME \n\n"
 helm s3 init --ignore-if-exists s3://$BUCKET_NAME
 helm repo add $REPO_NAME s3://$BUCKET_NAME
 
-printf "\n Verify If repo created is publicly accessible."
+printf "\n Verify If repo created is publicly accessible.And go to ACL and make it public read.\n"
+printf "In ArgoCD add repoURL: https://$BUCKET_NAME.s3.ap-south-1.amazonaws.com/"
