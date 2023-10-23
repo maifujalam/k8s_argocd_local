@@ -13,8 +13,10 @@
     b. Package helm files into archive:- helm package hello-kubernetes/
     c. Note:- a tar file will be generated basded on chart version from Chart.yaml.
 6. Upload to s3 bucket:
-    a. $ helm s3 push ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
-    b. $ helm s3 push --force ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
+    a. $ helm s3 push --relative ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3  (if don't provide --relative,it will pick absoulte path of chart which is s3://,
+         hence it will throw error by argocd that s3:// url is not found,this is bug).
+    b. $ helm s3 push --force --relative ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
+    c. verify that all the objects are publically accessable by browser. check: https://public-helm-repository-20231023075548482300000001.s3.ap-south-1.amazonaws.com/
 7. Search chart uploaded to repo:
     a. helm search repo hello
 8. Remove repo from syste: helm repo remove public-helm-repository-s3
