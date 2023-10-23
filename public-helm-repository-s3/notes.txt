@@ -5,8 +5,8 @@
     a. $ helm plugin install https://github.com/hypnoglow/helm-s3.git
 4. Setup bucket with index.yaml by doing init.
     a. $ helm s3 init s3://bucket-name/charts
-    b. example:- helm s3 init s3://public-helm-repository-20231022124329854200000001/charts
-    c. Add repo name to this s3 bucket: $ helm repo add public-helm-repository-s3 s3://public-helm-repository-20231022124329854200000001/charts
+    b. example:- helm s3 init s3://public-helm-repository-20231022152428444300000001
+    c. Add repo name to this s3 bucket: $ helm repo add public-helm-repository-s3 s3://public-helm-repository-20231022152428444300000001
     d. verify added repo: helm repo list
 5. Create helm tar file.
     a. validate helm filee:- helm lint hello-kubernetes/
@@ -17,3 +17,5 @@
     b. $ helm s3 push --force ./hello-kubernetes-1.0.0.tgz public-helm-repository-s3
 7. Search chart uploaded to repo:
     a. helm search repo hello
+8. Remove repo from syste: helm repo remove public-helm-repository-s3
+9. [Optional] Argo bacground download helm chart: helm pull --destination /tmp/ --version 1.0.0 --repo https://public-helm-repository-20231022152428444300000001.s3.ap-south-1.amazonaws.com/charts hello-kubernetes

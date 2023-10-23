@@ -1,0 +1,8 @@
+helm s3 init s3://public-helm-repository-20231022152428444300000001
+aws s3 ls s3://public-helm-repository-20231022152428444300000001
+helm repo add stable-myapp s3://public-helm-repository-20231022152428444300000001 (problem)
+helm s3 push hello-kubernetes-1.0.0.tgz stable-myapp | helm s3 push --relative hello-kubernetes-1.0.0.tgz stable-myapp
+helm repo index stable-myapp
+helm search repo stable-myapp
+helm repo remove stable-myapp
+Make sure the list of tar files and inxex is publically accesseble: https://public-helm-repository-20231022152428444300000001.s3.ap-south-1.amazonaws.com/
